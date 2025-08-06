@@ -11,8 +11,8 @@ class Dodajwpisycontroller extends Controller
             session_start();
             $conn = mysqli_connect('localhost', 'root', '', 'szt');
             $wpis = $_POST['wpis'] ?? '';
-            $folder = "/avatary";
-            $data = date("Y-m-d");
+            $folder = "avatary/";
+            $data = date("Y-m-d H:i:s");
             $zdj = null;
             if(!empty($_FILES['zdj']['tmp_name'])){
                 $nazwa = $_FILES['zdj']['tmp_name'] ?? '';

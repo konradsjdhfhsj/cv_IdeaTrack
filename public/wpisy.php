@@ -9,6 +9,6 @@ echo "<h3 class='text-green-700 mb-1'>" . htmlspecialchars($row['autor']) . "</h
 echo "<p class='text-green-600 text-sm mb-4'>" . htmlspecialchars($row['data']) . "</p>";
 
 if (!empty($row['zdj'])) {
-    echo '<center><img src="' . htmlspecialchars($row['zdj']) . '" class="w-32 h-32 object-cover rounded-full border-4 border-green-300 shadow-lg mx-auto"></center>';
+echo '<img src="' . htmlspecialchars($row['zdj']) . '" class="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-xl border border-gray-200 shadow-md" />';
 }
 echo "</div>"; }?>

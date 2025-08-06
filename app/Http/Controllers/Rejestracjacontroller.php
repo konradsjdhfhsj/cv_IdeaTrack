@@ -10,10 +10,7 @@ class Rejestracjacontroller extends Controller
 {
 public function rejestracja()
 {
-
     $conn = mysqli_connect('localhost', 'root', '', 'szt');
-
-
     $imie = $_POST['imie'] ?? '';
     $nazwisko = $_POST['nazwisko'] ?? '';
     $wiek = $_POST['wiek'] ?? '';

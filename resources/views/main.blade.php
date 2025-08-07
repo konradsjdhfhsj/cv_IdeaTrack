@@ -20,7 +20,7 @@
     <nav class="bg-green-500 text-white flex gap-4 p-4 justify-center shadow">
         <button id="btn-profil" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition">Profil</button>
         <button id="btn-projekty" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition">Projekty</button>
-        <button id="btn-forum" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition">Dodaj wpis na forum</button>
+        <button id="btn-forum" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition">Wpisy</button>
         <button id="wyloguj" class="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg transition">Wyloguj się</button>
     </nav>
     <!--opcje strony-->

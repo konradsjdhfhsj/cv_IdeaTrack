@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Osoby;
+use App\Mail\Mailpowitalny;
 use Illuminate\Http\Request;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Exists;
 
 class Rejestracjacontroller extends Controller
@@ -25,13 +30,14 @@ public function rejestracja()
         if($wynik->num_rows>0){
             echo "Niestety taki mail juz istnieje";
         } else {
+                Mail::to($email)->send(new Mailpowitalny());
                $stmt = $conn->prepare('INSERT INTO osoby(imie, nazwisko, wiek, email, haslo, avatar)VALUES(?, ?, ?, ?, ?, ?)');
                 $stmt->bind_param('ssisss', $imie, $nazwisko, $wiek, $email, $haslo, $avatar);
                 if($stmt->execute()){
                 return redirect('/panel');
                 } 
         }
-mysqli_close($conn);
+//mysqli_close($conn);
 }
 
 }

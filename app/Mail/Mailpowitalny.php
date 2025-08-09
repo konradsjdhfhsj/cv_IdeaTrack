@@ -27,7 +27,7 @@ class Mailpowitalny extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Mailpowitalny',
+            subject: 'Mail powitalny',
         );
     }
 

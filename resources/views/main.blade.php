@@ -21,7 +21,9 @@
         <button id="btn-profil" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition">Profil</button>
         <button id="btn-projekty" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition">Projekty</button>
         <button id="btn-forum" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition">Wpisy</button>
-        <button id="wyloguj" class="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg transition">Wyloguj się</button>
+        <form action="/wyloguj" method="post">
+        @csrf<input type="submit" value="Wyloguj się" class="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg transition">
+        </form>
     </nav>
     <!--opcje strony-->
     <main class="p-6">
@@ -38,7 +40,14 @@
                     <input type="file" name="avatar" id="avatarInput" class="mt-1 w-full">
                 </label>
                 <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">Zapisz</button>
-            </form></center>
+            </form><br><br>
+<form action="/usunkonto" method="post">
+    @csrf
+    <input 
+        type="submit" 
+        value="Usuń konto" 
+        class="bg-red-500 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-1 cursor-pointer transition">
+</form></center>
         </div>
 
         <div id="projekty" style="display:none;" class="bg-white p-6 rounded-xl shadow-lg max-w-xl mx-auto">
@@ -80,16 +89,29 @@
  </div>
 
         <div id="forum" style="display:block;" class="bg-white p-6 rounded-xl shadow-lg max-w-xl mx-auto">
-            <form action="/dodajwpis" method="post" enctype="multipart/form-data">
-                @csrf
-                <input type="text" name="wpis">
-                <input type="file" name="zdj">
-                <input type="submit" value="Dodaj wpis">
-            </form>
+
+
+<form class="max-w-sm mx-auto" method="POST" action="/dodajwpis">
+    @csrf
+  <div class="mb-5">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wpisz temat wpisu</label>
+    <input type="text" name="wpis" id="wpis" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
+  <div class="mb-5">
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wpisz tresc wpisu</label>
+    <input type="text" name="tresc" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
+
+<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Dodaj zdjecie</label>
+<input name="zdj" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
+<br><br>
+  <button type="submit" value="Dodaj Wpis" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Dodaj wpis</button>
+</form>
+
         </div>
         <?php require_once('wpisy.php') ?>
     </main>
     <!--stopka-->
-    <footer class="text-center text-gray-500 p-4">&copy; 2025</footer>
+    <footer class="text-center text-gray-500 p-4"><?php require_once('czlonkowie.php') ?> &copy; 2025</footer>
 </body>
 </html>

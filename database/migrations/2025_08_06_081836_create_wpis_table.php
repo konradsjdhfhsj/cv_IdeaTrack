@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('wpis', function (Blueprint $table) {
             $table->id();
             $table->string('wpis');
+            $table->string('tresc');
             $table->string('zdj');
             $table->string('autor');
             $table->date('data');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dodajkomentarzcontroller;
 use App\Http\Controllers\Dodajprojektcontroller;
 use App\Http\Controllers\Dodajurzytkownikacontroller;
 use App\Http\Controllers\Dodajwpisycontroller;
@@ -22,4 +23,5 @@ Route::post('/dodajprojekt', [Dodajprojektcontroller::class, 'dodajprojekt']);
 Route::post('/dodajwpis', [Dodajwpisycontroller::class, 'dodajwpisy']);
 Route::post('/wyloguj', [Wylogujcontroller::class, 'wyloguj']);
 Route::post('/usunkonto', [Usunkontocontroller::class, 'usun']);
-Route::post('dodajurzytkownika', [Dodajurzytkownikacontroller::class, 'dodajurzytkownika']);
+Route::post('/dodajurzytkownika', [Dodajurzytkownikacontroller::class, 'dodajurzytkownika']);
+Route::post('/dodakomentarz', [Dodajkomentarzcontroller::class, 'dodajkomentarz']);

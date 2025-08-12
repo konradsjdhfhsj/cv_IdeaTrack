@@ -1,46 +1,89 @@
 <?php
+
+use PhpParser\Node\Stmt\Else_;
+
     $conn = mysqli_connect('localhost', 'root', '', 'szt');
 
     $query = $conn->prepare("SELECT * FROM projekt WHERE (autor = ? OR czlonek = ?)");
     $query->bind_param("ss", $_SESSION['email'], $_SESSION['email']);
     $query->execute();
     $result = $query->get_result();
-    while($row = $result->fetch_assoc()){
-echo '<div class="p-4 mb-4 bg-gray-100 rounded-xl shadow hover:shadow-md transition">
-    <h2 class="text-xl font-semibold text-gray-800 mb-1">'.htmlspecialchars($row["nazwa"]).'</h2>
-    <p class="text-gray-600 mb-2">'.htmlspecialchars($row["opis"]).'</p>
-    <b class="text-gray-700">'.htmlspecialchars($row["autor"]).'</b>
-</div>';
+   while ($row = $result->fetch_assoc()) {
+echo '<div class="bg-gray-100 border border-gray-300 rounded-lg p-4 shadow-sm mb-4">';
+echo '<p class="text-sm text-gray-500 font-semibold">Autor:</p>';
+echo '<p class="mb-2 text-gray-800">'.htmlspecialchars($row['autor']).'</p>';
 
-echo '<form action="/dodajurzytkownika" method="POST" class="max-w-md mx-auto">
-' . csrf_field() . '
-  <input type="hidden" name="id" value="' . $row['id'] . '">
-  
-  <div class="relative z-0 w-full mb-5 group">
-      <input type="email" name="user" id="floating_email" 
-          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
-                 border-gray-300 appearance-none dark:text-white dark:border-gray-600 
-                 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-          placeholder=" " required />
-      <label for="floating_email" 
-          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 
-                 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 
-                 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 
-                 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 
-                 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-          Dodaj użytkownika (po adresie e-mail)
-      </label>
-  </div>
+echo '<p class="text-sm text-gray-500 font-semibold">Nazwa:</p>';
+echo '<p class="mb-2 text-gray-800 font-medium">'.htmlspecialchars($row['nazwa']).'</p>';
 
-  <button type="submit" 
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none 
-             focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 
-             text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-      Dodaj użytkownika
-  </button>
-</form>';
+echo '<p class="text-sm text-gray-500 font-semibold">Opis:</p>';
+echo '<p class="mb-4 text-gray-700">'.htmlspecialchars($row['opis']).'</p>';
+
+// CSRF token w Laravelu
+$csrf = csrf_token();
+
+echo '<form action="/dodajurzytkownika" method="post" class="bg-green-50 p-3 rounded-lg border border-green-200">';
+echo '<input type="hidden" name="_token" value="'.$csrf.'">';
+echo '<label class="block mb-2 text-sm text-gray-700 font-medium">Dodaj użytkownika</label>';
+echo '<input type="email" name="email" placeholder="Adres e-mail" required 
+        class="w-full px-3 py-2 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-green-400">';
+echo '<input type="hidden" name="id" value="'.($row['id'] ?? '').'">';
+echo '<button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">Dodaj</button>';
+echo '</form>';
 
 
+echo '<form action="/dodakomentarz" method="post" class="bg-green-50 p-3 rounded-lg border border-green-200">';
+echo '<input type="hidden" name="_token" value="'.$csrf.'">';
+echo '<label class="block mb-2 text-sm text-gray-700 font-medium">Dodaj Komentarz</label>';
+echo '<input type="text" name="komentarz" placeholder="Dodaj komentarz" required 
+        class="w-full px-3 py-2 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-green-400">';
+echo '<input type="hidden" name="id" value="'.($row['id'] ?? '').'">';
+echo '<button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">Dodaj</button>';
+echo '</form>';
 
+
+echo '<div class="mt-4">';
+echo '<p class="text-sm text-gray-500 font-semibold">Członkowie:</p>';
+$pyt = $conn->prepare("SELECT * FROM projekt WHERE id_p = ?");
+$pyt->bind_param("i", $row['id']);
+$pyt->execute();
+$wynik = $pyt->get_result();
+if ($wynik->num_rows > 0) {
+    echo '<ul class="list-disc list-inside text-gray-800">';
+    while ($t = $wynik->fetch_assoc()) {
+        echo '<li>'.htmlspecialchars($t['czlonek']).'</li>';
+    }
+    echo '</ul>';
+} else {
+    echo '<p class="text-gray-400 italic">Brak członków</p>';
 }
+echo '</div>';
+
+echo '</div>';
+
+
+
+
+echo '<div class="mt-4">';
+echo '<p class="text-sm text-gray-500 font-semibold">Komentarze:</p>';
+$pyt = $conn->prepare("SELECT * FROM projekt WHERE id_p = ?");
+$pyt->bind_param("i", $row['id']);
+$pyt->execute();
+$wynik = $pyt->get_result();
+if ($wynik->num_rows > 0) {
+    echo '<ul class="list-disc list-inside text-gray-800">';
+    while ($t = $wynik->fetch_assoc()) {
+        echo '<li>'.$t['autor'] ?? ''."-".htmlspecialchars($t['komentarz']) ?? ''.'</li>';
+    }
+    echo '</ul>';
+} else {
+    echo '<p class="text-gray-400 italic">Brak komentarzy</p>';
+}
+echo '</div>';
+
+echo '</div>';
+echo "<br>"."<br>"."<br>";
+}
+
+
 ?>

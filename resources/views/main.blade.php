@@ -12,8 +12,6 @@
 <?php session_start() ?>
     <header class="bg-green-600 text-white p-4 shadow-md">
         <?php require_once('czas.php');?>
-
-        <?php /*Do edycji poprawa headera beje*/?>
     </header>
 
     <!--navbar-->
@@ -91,7 +89,7 @@
         <div id="forum" style="display:block;" class="bg-white p-6 rounded-xl shadow-lg max-w-xl mx-auto">
 
 
-<form class="max-w-sm mx-auto" method="POST" action="/dodajwpis">
+<form class="max-w-sm mx-auto" method="POST" action="/dodajwpis" enctype="multipart/form-data">
     @csrf
   <div class="mb-5">
     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wpisz temat wpisu</label>
@@ -112,6 +110,7 @@
         <?php require_once('wpisy.php') ?>
     </main>
     <!--stopka-->
-    <footer class="text-center text-gray-500 p-4"><?php require_once('czlonkowie.php') ?> &copy; 2025</footer>
+    <footer class="text-center text-gray-500 p-4"> 
+ &copy; 2025</footer>
 </body>
 </html>

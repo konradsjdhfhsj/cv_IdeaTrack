@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Dodajurzytkownikacontroller extends Controller
+class Dodajkomentarzcontroller extends Controller
 {
-    public function dodajurzytkownika(){
+    public function dodajkomentarz(){
+        session_start();
         if($_POST){
             $conn = mysqli_connect('localhost', 'root', '', 'szt');
-            $user = $_POST['email'] ?? '';
+            $komentarz = $_POST['komentarz'] ?? '';
+
             $id = $_POST['id'] ?? '';
-            $q = $conn->prepare("INSERT INTO projekt(czlonek, id_p)VALUES(?, ?)");
-            $q->bind_param("si", $user, $id);
+            $q = $conn->prepare("INSERT INTO projekt(komentarz, autorkom, id_p)VALUES(?, ?, ?)");
+            $q->bind_param("ssi", $komentarz ,$_SESSION['email'], $id);
             if($q->execute()){
                 return redirect('/main');
             } else {
@@ -20,6 +22,4 @@ class Dodajurzytkownikacontroller extends Controller
             }
         }mysqli_close($conn);
     }
-
-
 }

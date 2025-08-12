@@ -11,6 +11,14 @@ class Dodajurzytkownikacontroller extends Controller
             $conn = mysqli_connect('localhost', 'root', '', 'szt');
             $user = $_POST['email'] ?? '';
             $id = $_POST['id'] ?? '';
+
+            $q = $conn->prepare("SELECT * FROM osoby WHERE email = ?");
+            $q->bind_param("s", $user);
+            $q->execute();
+
+            $r = $q->get_result();
+
+            if($r -> num_rows >0){
             $q = $conn->prepare("INSERT INTO projekt(czlonek, id_p)VALUES(?, ?)");
             $q->bind_param("si", $user, $id);
             if($q->execute()){
@@ -18,8 +26,15 @@ class Dodajurzytkownikacontroller extends Controller
             } else {
                 echo"Nie udalo sie";
             }
-        }mysqli_close($conn);
+        } else {
+            echo"Niestety nie istnieje taki urzytkownik";
+        }
+        mysqli_close($conn);
+            }
+        }
+        
+
+           
     }
 
 
-}

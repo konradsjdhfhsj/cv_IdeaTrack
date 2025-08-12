@@ -21,6 +21,14 @@ public function rejestracja()
     $wiek = $_POST['wiek'] ?? '';
     $email = $_POST['email'] ?? '';
     $avatar = 'def.png';
+
+    $spr = $conn->prepare("SELECT * FROM osoby WHERE email = ?");
+    $spr->bind_param("s", $email);
+    $spr->execute();
+    $wy = $spr->get_result();
+    if($wy -> num_rows >0){
+        echo"Niestety taki urzytkownik juz istnieje . prosze podac inny adres email";
+    } else {
     $haslo = password_hash($_POST['haslo'] ?? '', PASSWORD_DEFAULT);
 
     $spr = $conn->prepare("SELECT * FROM osoby WHERE email = ?");
@@ -36,8 +44,7 @@ public function rejestracja()
                 if($stmt->execute()){
                 return redirect('/panel');
                 } 
-        }
-//mysqli_close($conn);
+        }}mysqli_close($conn);
 }
 
 }

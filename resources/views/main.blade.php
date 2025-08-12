@@ -110,7 +110,21 @@
         <?php require_once('wpisy.php') ?>
     </main>
     <!--stopka-->
-    <footer class="text-center text-gray-500 p-4"> 
- &copy; 2025</footer>
+    <footer class="text-center text-gray-500 p-4">Pomoc/Zglos blad:
+<form action="/gh" method="post" class="flex flex-col gap-3 p-4 bg-gray-50 rounded-lg shadow">
+    @csrf
+    <input type="hidden" name="email" value="{{ session('email') }}">
+
+    <input type="text" name="tekst" placeholder="Opisz co się stało / w czym możemy pomóc"
+           class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-400 focus:ring focus:ring-indigo-300 focus:ring-opacity-40 outline-none" />
+
+    <input type="submit" value="Wyślij zgłoszenie"
+           class="cursor-pointer rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+</form>
+
+    </footer>
+        
+    </footer>
+
 </body>
 </html>

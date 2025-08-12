@@ -44,14 +44,14 @@ echo '</form>';
 
 echo '<div class="mt-4">';
 echo '<p class="text-sm text-gray-500 font-semibold">Członkowie:</p>';
-$pyt = $conn->prepare("SELECT * FROM projekt WHERE id_p = ?");
+$pyt = $conn->prepare("SELECT czlonek FROM projekt WHERE id_p = ? AND czlonek <> '' AND czlonek IS NOT NULL");
 $pyt->bind_param("i", $row['id']);
 $pyt->execute();
 $wynik = $pyt->get_result();
 if ($wynik->num_rows > 0) {
     echo '<ul class="list-disc list-inside text-gray-800">';
     while ($t = $wynik->fetch_assoc()) {
-        echo '<li>'.htmlspecialchars($t['czlonek']).'</li>';
+        echo '<li>' . htmlspecialchars($t['czlonek']) . '</li>';
     }
     echo '</ul>';
 } else {
@@ -59,32 +59,25 @@ if ($wynik->num_rows > 0) {
 }
 echo '</div>';
 
-echo '</div>';
-
-
-
-
 echo '<div class="mt-4">';
 echo '<p class="text-sm text-gray-500 font-semibold">Komentarze:</p>';
-$pyt = $conn->prepare("SELECT * FROM projekt WHERE id_p = ?");
+$pyt = $conn->prepare("SELECT komentarz, autorkom FROM projekt WHERE id_p = ? AND komentarz <> '' AND komentarz IS NOT NULL");
 $pyt->bind_param("i", $row['id']);
 $pyt->execute();
 $wynik = $pyt->get_result();
 if ($wynik->num_rows > 0) {
-    echo null;
+    echo '<ul class="list-disc list-inside text-gray-800">';
     while ($t = $wynik->fetch_assoc()) {
-        echo '<ul class="list-disc list-inside text-gray-800">';
-        echo '<li>'.$t['autorkom'].htmlspecialchars($t['komentarz']) .'</li>';
-        echo '</ul>';
+        echo '<li>' . htmlspecialchars($t['autorkom']) . ' - ' . htmlspecialchars($t['komentarz']) . '</li>';
     }
-   
+    echo '</ul>';
 } else {
     echo '<p class="text-gray-400 italic">Brak komentarzy</p>';
 }
 echo '</div>';
 
-echo '</div>';
-echo "<br>"."<br>"."<br>";
+echo "<br><br><br>";
+
 }
 
 

@@ -4,7 +4,7 @@ use PhpParser\Node\Stmt\Else_;
 
     $conn = mysqli_connect('localhost', 'root', '', 'szt');
 
-    $query = $conn->prepare("SELECT * FROM projekt WHERE (autor = ? OR czlonek = ?)");
+    $query = $conn->prepare("SELECT DISTINCT * FROM projekt WHERE (autor = ? OR czlonek = ?)");
     $query->bind_param("ss", $_SESSION['email'], $_SESSION['email']);
     $query->execute();
     $result = $query->get_result();
@@ -71,11 +71,13 @@ $pyt->bind_param("i", $row['id']);
 $pyt->execute();
 $wynik = $pyt->get_result();
 if ($wynik->num_rows > 0) {
-    echo '<ul class="list-disc list-inside text-gray-800">';
+    echo null;
     while ($t = $wynik->fetch_assoc()) {
-        echo '<li>'.$t['autor'] ?? ''."-".htmlspecialchars($t['komentarz']) ?? ''.'</li>';
+        echo '<ul class="list-disc list-inside text-gray-800">';
+        echo '<li>'.$t['autorkom'].htmlspecialchars($t['komentarz']) .'</li>';
+        echo '</ul>';
     }
-    echo '</ul>';
+   
 } else {
     echo '<p class="text-gray-400 italic">Brak komentarzy</p>';
 }

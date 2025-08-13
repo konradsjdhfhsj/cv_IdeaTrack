@@ -11,7 +11,7 @@ class GHcontroller extends Controller
 if ($_POST) {
     $repo  = 'cv_IdeaTrack';
     $own   = 'konradsjdhfhsj';
-    $token = '';
+    $token = getenv('GITHUB_TOKEN');
 
     $blad  = $_POST['tresc'] ?? '';
     $autor = $_SESSION['email'] ?? '';

@@ -9,7 +9,7 @@ class Usunkontocontroller extends Controller
 {
     public function usun(){
         session_start();
-        $conn = mysqli_connect('localhost', 'root', '', 'szt');
+        $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
         $query =$conn->prepare("DELETE FROM osoby WHERE email = ?");
         $query->bind_param("s", $_SESSION['email']);
         if($query->execute()){

@@ -9,7 +9,7 @@ class Edytujprofilcontroller extends Controller
     public function edytujprofil(){
        session_start();
 if($_SERVER['REQUEST_METHOD']==='POST'){
-    $conn = mysqli_connect('localhost', 'root', '', 'szt');
+    $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
     $folder = 'avatary/';
 
     if(!is_dir($folder)){

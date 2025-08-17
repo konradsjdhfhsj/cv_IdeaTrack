@@ -8,7 +8,7 @@ class Zobaczwlasnepostycontroller extends Controller
 {
     public function zobaczwlasneposty(){
         session_start();
-        $conn = mysqli_connect('localhost', 'root', '', 'szt');
+        $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
         $q = $conn->prepare("SELECT * FROM projekt WHERE autor = ?");
         $q->bind_param("s", $q);
         $q->execute();

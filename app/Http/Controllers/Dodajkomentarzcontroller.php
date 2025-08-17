@@ -9,7 +9,7 @@ class Dodajkomentarzcontroller extends Controller
     public function dodajkomentarz(){
         session_start();
         if($_POST){
-            $conn = mysqli_connect('localhost', 'root', '', 'szt');
+            $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
             $komentarz = $_POST['komentarz'] ?? '';
 
             $id = $_POST['id'] ?? '';

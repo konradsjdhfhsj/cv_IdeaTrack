@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'szt');
+$conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
 $query = "SELECT * FROM osoby WHERE email = '" . $conn->real_escape_string($_SESSION['email']) . "'";
 $result = $conn->query($query);
 $row = $result->fetch_assoc();

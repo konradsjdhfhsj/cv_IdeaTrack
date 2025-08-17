@@ -1,5 +1,5 @@
 <?php
-    $conn = mysqli_connect('localhost', 'root', '', 'szt');
+    $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
     $query = "SELECT * FROM wpis WHERE autor <> ''AND wpis <> ''AND tresc <> ''AND autor IS NOT NULL AND wpis IS NOT NULL AND tresc IS NOT NULL ORDER BY data DESC";
     $result = $conn->query($query);
     while($row = $result->fetch_assoc()){
@@ -12,13 +12,22 @@ if (!empty($row['zdj'])) {
 echo '<img src="' . htmlspecialchars($row['zdj']) . '" class="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-xl border border-gray-200 shadow-md" />';
 }
 
-echo '<form action="/dodajodpowiedz" method="post">';
-echo '<input type="hidden" name="_token" value="'.$csrf.'">';
-echo '<input type="hidden" name="idw" value="' . $row['id'] . '">';
-echo '<input type="hidden" name="email" value="' . $_SESSION['email'] . '">';
-echo '<input type="text" name="odp" placeholder="Wpisz odpowiedź:">';
-echo '<input type="submit" value="Dodaj odpowiedz:">';
-echo '</form>';
+echo '
+<form action="/dodajodpowiedz" method="post" class="space-y-3 bg-white p-4 rounded-2xl shadow-md">
+<input type="hidden" name="_token" value="'.$csrf.'">
+<input type="hidden" name="idw" value="' . $row['id'] . '">
+<input type="hidden" name="email" value="' . $_SESSION['email'] . '">
+    <div>
+        <input type="text" name="odp" placeholder="Wpisz odpowiedź..." class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+    </div>
+
+    <div>
+    <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition">Dodaj odpowiedź
+    </button>
+    </div>
+</form>
+';
+
 
 echo '<p class="text-sm text-gray-500 font-semibold">Odpowiedzi:</p>';
 $pyt = $conn->prepare("SELECT odp, id_w, autorodp FROM wpis WHERE id_w = ? AND odp <> '' AND odp IS NOT NULL");

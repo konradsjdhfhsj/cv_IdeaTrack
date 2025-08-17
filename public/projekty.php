@@ -2,7 +2,7 @@
 
 use PhpParser\Node\Stmt\Else_;
 
-    $conn = mysqli_connect('localhost', 'root', '', 'szt');
+    $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
 
     $query = $conn->prepare("SELECT DISTINCT * FROM projekt WHERE (autor = ? OR czlonek = ?)");
     $query->bind_param("ss", $_SESSION['email'], $_SESSION['email']);

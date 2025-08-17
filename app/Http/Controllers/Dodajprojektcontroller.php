@@ -9,7 +9,7 @@ class Dodajprojektcontroller extends Controller
     public function dodajprojekt(){
         if($_POST){
          session_start();
-         $conn = mysqli_connect('localhost', 'root', '', 'szt');
+         $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
 
          $nazwaprojektu = $_POST['nazwaprojektu'] ?? '';
          $opisprojektu = $_POST['opisprojektu'] ?? '';

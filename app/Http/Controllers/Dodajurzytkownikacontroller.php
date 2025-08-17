@@ -8,7 +8,7 @@ class Dodajurzytkownikacontroller extends Controller
 {
     public function dodajurzytkownika(){
         if($_POST){
-            $conn = mysqli_connect('localhost', 'root', '', 'szt');
+            $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
             $user = $_POST['email'] ?? '';
             $id = $_POST['id'] ?? '';
 

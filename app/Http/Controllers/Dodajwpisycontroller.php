@@ -9,7 +9,7 @@ class Dodajwpisycontroller extends Controller
     public function dodajwpisy(){
         if($_POST){
             session_start();
-            $conn = mysqli_connect('localhost', 'root', '', 'szt');
+            $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
             $wpis = $_POST['wpis'] ?? '';
             $tresc = $_POST['tresc'] ?? '';
             $folder = "avatary/";

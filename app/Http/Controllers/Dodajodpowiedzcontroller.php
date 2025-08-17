@@ -8,7 +8,7 @@ class Dodajodpowiedzcontroller extends Controller
 {
     public function doajodpowiedz(){
         if($_POST){
-            $conn = mysqli_connect("localhost", "root", "", "szt");
+            $conn = mysqli_connect('127.0.0.1', "root", "", "szt");
 
             $idw = $_POST['idw'] ?? "";
             $autor = $_POST['email'] ?? "";

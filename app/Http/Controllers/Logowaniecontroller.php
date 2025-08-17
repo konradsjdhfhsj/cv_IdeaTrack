@@ -8,7 +8,7 @@ class Logowaniecontroller extends Controller
 {
     public function logowanie(){
    session_start();
-$conn = mysqli_connect('localhost', 'root', '', 'szt');
+$conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
 
 $email = $_POST['email'] ?? '';
 $haslo = $_POST['haslo'] ?? '';

@@ -20,8 +20,6 @@ $log->execute();
 $wynik = $log->get_result();
 if($wynik->num_rows > 0){
     $row = $wynik->fetch_assoc();
-
-    // tu dopiero sprawdzasz hasło:
     if (password_verify($haslo, $row['haslo'])) {
         $_SESSION['email'] = $email;
         echo "Zalogowano pomyślnie";

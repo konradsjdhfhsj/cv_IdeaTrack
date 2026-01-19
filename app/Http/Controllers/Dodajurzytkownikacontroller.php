@@ -19,8 +19,8 @@ class Dodajurzytkownikacontroller extends Controller
             $r = $q->get_result();
 
             if($r -> num_rows >0){
-            $q = $conn->prepare("INSERT INTO projekt(czlonek, id_p)VALUES(?, ?)");
-            $q->bind_param("si", $user, $id);
+            $q = $conn->prepare("INSERT INTO projekt(id_p, czlonek)VALUES(?, ?)");
+            $q->bind_param("is", $id, $user);
             if($q->execute()){
                 return redirect('/main');
             } else {

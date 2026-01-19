@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('wpis', function (Blueprint $table) {
             $table->id();
-            $table->string('wpis');
-            $table->string('tresc');
-            $table->string('zdj');
-            $table->string('autor');
-            $table->date('data');
+            $table->string('wpis')->nullable();
+            $table->string('tresc')->nullable();
+            $table->string('zdj')->nullable();
+            $table->string('autor')->nullable();
+            $table->string('komentarz')->nullable();
+            $table->string('autorkom')->nullable();
+            $table->string('id_w')->nullable();
+            $table->date('data')->nullable();
             $table->timestamps();
         });
     }

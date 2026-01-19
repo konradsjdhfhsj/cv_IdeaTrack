@@ -11,10 +11,12 @@ echo"<b>".$row['tresc']."</b>";
 if (!empty($row['zdj'])) {
 echo '<img src="' . htmlspecialchars($row['zdj']) . '" class="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-xl border border-gray-200 shadow-md" />';
 }
+$csrf = csrf_token() ?? '';
 
 echo '
 <form action="/dodajodpowiedz" method="post" class="space-y-3 bg-white p-4 rounded-2xl shadow-md">
 <input type="hidden" name="_token" value="'.$csrf.'">
+
 <input type="hidden" name="idw" value="' . $row['id'] . '">
 <input type="hidden" name="email" value="' . $_SESSION['email'] . '">
     <div>
@@ -30,18 +32,24 @@ echo '
 
 
 echo '<p class="text-sm text-gray-500 font-semibold">Odpowiedzi:</p>';
-$pyt = $conn->prepare("SELECT odp, id_w, autorodp FROM wpis WHERE id_w = ? AND odp <> '' AND odp IS NOT NULL");
+
+$pyt = $conn->prepare("
+    SELECT * 
+    FROM wpis 
+    WHERE id_w = ?
+    ORDER BY id ASC
+");
 $pyt->bind_param("i", $row['id']);
 $pyt->execute();
 $wynik = $pyt->get_result();
+
 if ($wynik->num_rows > 0) {
     echo '<ul class="list-disc list-inside text-gray-800">';
     while ($t = $wynik->fetch_assoc()) {
-        echo '<li>' . "<b>" . $t['autorodp']. "</b>" ." - ". $t['odp'] . '</li>';
+        echo '<li><b>' . $t['autorkom'] . '</b> - ' . $t['komentarz']. '</li>';
     }
     echo '</ul>';
 } else {
     echo '<p class="text-gray-400 italic">Brak Odpowiedzi</p>';
-}
-
-echo "</div>"; }?>
+}}
+?>

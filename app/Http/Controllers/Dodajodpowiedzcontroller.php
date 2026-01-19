@@ -14,8 +14,8 @@ class Dodajodpowiedzcontroller extends Controller
             $autor = $_POST['email'] ?? "";
             $odp = $_POST['odp'] ?? ""; 
 
-            $q = $conn->prepare("INSERT INTO wpis(odp, id_w, autorodp)VALUES(?, ? ,?)"); 
-            $q->bind_param("sis", $odp, $idw, $autor);
+            $q = $conn->prepare("INSERT INTO wpis(komentarz, autorkom, id_w)VALUES(?, ? ,?)"); 
+            $q->bind_param("sss", $odp, $autor, $idw);
             if($q->execute()){
                 return redirect('/main');
             }mysqli_close($conn);

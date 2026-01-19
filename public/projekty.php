@@ -4,8 +4,8 @@ use PhpParser\Node\Stmt\Else_;
 
     $conn = mysqli_connect('127.0.0.1', 'root', '', 'szt');
 
-    $query = $conn->prepare("SELECT DISTINCT * FROM projekt WHERE (autor = ? OR czlonek = ?)");
-    $query->bind_param("ss", $_SESSION['email'], $_SESSION['email']);
+    $query = $conn->prepare("SELECT DISTINCT * FROM projekt WHERE (autor = ?)");
+    $query->bind_param("s", $_SESSION['email']);
     $query->execute();
     $result = $query->get_result();
    while ($row = $result->fetch_assoc()) {
@@ -20,7 +20,7 @@ echo '<p class="text-sm text-gray-500 font-semibold">Opis:</p>';
 echo '<p class="mb-4 text-gray-700">'.htmlspecialchars($row['opis']).'</p>';
 
 // CSRF token w Laravelu
-$csrf = csrf_token();
+$csrf = csrf_token() ?? '';
 
 echo '<form action="/dodajurzytkownika" method="post" class="bg-green-50 p-3 rounded-lg border border-green-200">';
 echo '<input type="hidden" name="_token" value="'.$csrf.'">';

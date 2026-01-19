@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('osoby', function (Blueprint $table) {
             $table->id();
-            $table->string('imie');
-            $table->string('nazwisko');
-            $table->integer('wiek');
-            $table->string('email');
-            $table->string('haslo');
-            $table->string('avatar');
+            $table->string('imie')->nullable();
+            $table->string('nazwisko')->nullable();
+            $table->integer('wiek')->nullable();
+            $table->string('email')->nullable();
+            $table->string('haslo')->nullable();
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }

@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('projekt', function (Blueprint $table) {
             $table->id();
-            $table->string('nazwa');
-            $table->string('opis');
-            $table->string('autor');
-            $table->string('zdj');
-            $table->string('zadanie');
+            $table->string('nazwa')->nullable();
+            $table->string('id_p')->nullable();
+            $table->string('opis')->nullable();
+            $table->string('autor')->nullable();
+            $table->string('zdj')->nullable();
+            $table->string('komentarz')->nullable();
+            $table->string('autorkom')->nullable();
+            $table->string('czlonek')->nullable();
+            $table->string('zadanie')->nullable();
             $table->timestamps();
         });
     }

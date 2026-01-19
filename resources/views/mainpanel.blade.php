@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>szt - panel</title>
+    <title>Panel główny</title>
+    <link rel="shortcut icon" href="stern.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-green-100 via-teal-100 to-blue-100 min-h-screen flex flex-col items-center pt-10 font-sans">

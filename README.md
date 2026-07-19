@@ -65,7 +65,7 @@ MAIL_FROM_NAME="System Monitoringu"
 ### 3. Integracja z GitHub API (Zgłaszanie błędów)
 Ustawienia niezbędne do automatycznego tworzenia ticketów (Issues) w tym repozytorium w momencie wystąpienia wyjątków w aplikacji:
 ```env
-GITHUB_ISSUE_TOKEN=twoj_osobisty_token_github
+GITHUB_TOKEN=twoj_osobisty_token_github
 GITHUB_REPO_OWNER=twoj_login_na_githubie
 GITHUB_REPO_NAME=nazwa_tego_repozytorium
 ```
